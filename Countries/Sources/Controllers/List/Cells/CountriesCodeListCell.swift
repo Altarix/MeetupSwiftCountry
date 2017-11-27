@@ -13,6 +13,6 @@
 
 import UIKit
 
-class CountriesCodeListCell: UITableViewCell, CountriesListCellProtocol {
+class CountriesCodeListCell: UITableViewCell {
     
 }

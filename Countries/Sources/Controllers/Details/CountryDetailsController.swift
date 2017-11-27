@@ -13,17 +13,20 @@
 
 import UIKit
 
+// TODO 7. Есть такая бага, что переходишь с этого экрана без сохранения изменений обратно в список, а изменения все равно сохраняются
 class CountryDetailsController: UIViewController {
     
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     
-    var country: CountryEntity?
+    // TODO 10. Надо переделать логику опциональности, из-за этого падает приложение на добавлении
+    var country: CountryEntity!
+    var editHandler: ((_:CountryEntity) -> Void)!
+    var addHandler: ((_:CountryEntity) -> Void)!
     
-    var editHandler: ((_:CountryEntity) -> Void)?
-    
-    var addHandler: ((_:CountryEntity) -> Void)?
+    // TODO 10. можно считать избыточным параметром
+    var isAdding: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +35,6 @@ class CountryDetailsController: UIViewController {
     }
     
     func update() {
-        guard let country = country else {
-            return
-        }
         nameTextField.text = country.name
         codeTextField.text = country.code
         navigationItem.title = country.code
@@ -47,14 +47,14 @@ class CountryDetailsController: UIViewController {
     
     @IBAction func editClick(_ sender: Any) {
         update()
-        if let country = country
+        if isAdding
         {
-            editHandler?(country)
-        } else {
             let code = codeTextField.text ?? ""
             let name = nameTextField.text ?? ""
             let country = CountryEntity(name: name, code: code.uppercased())
-            addHandler?(country)
+            addHandler(country)
+        } else {
+            editHandler(country)
         }
         navigationController?.popViewController(animated: true)
     }

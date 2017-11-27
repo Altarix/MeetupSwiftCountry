@@ -30,7 +30,7 @@ final class Loader {
         return nil
     }
     
-    class func loadArray<T>(_ mockupFile: String) -> [T] {
+    class func loadArray<T: JSONProtocol>(_ mockupFile: String) -> [T] {
         var result : [T] = []
         guard let stringURL = getURL(mockupFile),
             let url = URL(string: stringURL) else
@@ -39,10 +39,13 @@ final class Loader {
             return result
         }
         
-        let decoder = JSONDecoder()
         do {
             let responseData = try Data(contentsOf: url, options: .alwaysMapped)
-            result = try decoder.decode([T].self, from: responseData as Data)
+            // TODO 8. Тут не безопасно! Упростить парсинг JSON - JSONDecoder
+            let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as! [[String : Any]]
+            for item in json {
+                result.append(T(json: item))
+            }
         } catch {
             print("""
                 error trying to convert data to JSON
@@ -55,7 +58,7 @@ final class Loader {
         return result
     }
     
-    class func saveArray<T>(_ mockupFile: String, array: [T]) {
+    class func saveArray<T: JSONProtocol>(_ mockupFile: String, array: [T]) {
         
         guard let stringURL = getURL(mockupFile),
             let url = URL(string: stringURL) else
@@ -64,11 +67,15 @@ final class Loader {
             return
         }
         
-        let encoder = JSONEncoder()
-        encoder.dataEncodingStrategy = .deferredToData
         do {
             try FileManager.default.removeItem(at: url)
-            let data = try encoder.encode(array)
+            // TODO 8. Упростить парсинг JSON - JSONEncoder
+            var json: [[String : Any]] = []
+            for item in array {
+                json.append(item.json)
+            }
+            let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+            // TODO 9. С опциональностью мудрежь
             let jsonString = String(data: data, encoding: .utf8)
             try jsonString?.write(to: url, atomically: true, encoding: .utf8)
             

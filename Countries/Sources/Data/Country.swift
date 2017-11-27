@@ -13,17 +13,32 @@
 
 import Foundation
 
-protocol CountryProtocol {
-    var name: String {get}
-    var code: String {get}
+// TODO 8. избыточное решение для Swift 4
+protocol JSONProtocol {
+    
+    init(json : [String: Any])
+    
+    var json : [String: Any] {get}
+    
 }
 
-struct CountryEntity: Codable, CountryProtocol {
+// TODO 5. обозначь CountryProtocol, чтобы иметь возможность маневров с моделью
+class CountryEntity: JSONProtocol {
     var name: String
     var code: String
     
-    init(name: String, code: String) {
+    required init(name: String, code: String) {
         self.name = name
         self.code = code
+    }
+    
+    // TODO 8. Упростить парсинг JSON - Codable
+    required convenience init(json : [String: Any]) {
+        self.init(name: json["name"] as? String ?? "",
+                  code: json["code"] as? String ?? "")
+    }
+    
+    var json : [String: Any] {
+        return ["name": name, "code": code]
     }
 }

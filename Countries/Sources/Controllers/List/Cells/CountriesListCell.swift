@@ -13,7 +13,7 @@
 
 import UIKit
 
-class CountriesListCell: UITableViewCell, CountriesListCellProtocol {
+class CountriesListCell: UITableViewCell {
     
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!

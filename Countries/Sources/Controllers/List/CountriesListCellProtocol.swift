@@ -13,33 +13,11 @@
 
 import UIKit
 
+// TODO 3. Реалезуй этот протокол чтобы вытащить из контролера обновление ячеек
+// ПРИМЕР: extension CountriesListCellProtocol where Self: YourCell
+// Да, и ячейки не забудь укомплектовать этим протоколом
 protocol CountriesListCellProtocol {
     
     func update(from entity: CountryProtocol)
 
-}
-
-extension CountriesListCellProtocol where Self: CountriesListCell {
-    
-    func update(from entity: CountryProtocol) {
-        codeLabel.text = entity.code
-        nameLabel.text = entity.name
-    }
-    
-}
-
-extension CountriesListCellProtocol where Self: CountriesCodeListCell {
-    
-    func update(from entity: CountryProtocol) {
-        textLabel?.text = entity.code
-    }
-    
-}
-
-extension CountriesListCellProtocol where Self: CountriesNameListCell {
-    
-    func update(from entity: CountryProtocol) {
-        textLabel?.text = entity.name
-    }
-    
 }

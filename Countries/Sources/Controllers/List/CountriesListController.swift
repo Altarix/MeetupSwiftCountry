@@ -21,40 +21,23 @@ class CountriesListController: UIViewController {
     private var allCountries: [CountryEntity] = []
     private var countries: [CountryEntity] = []
     
+    // TODO 2. Сделай каталог всех секций через enum
     fileprivate enum Sections: String
     {
-        case allCountry = "All information"
+        case allCountry
+        //...
         
-        case nameCountry = "Only name of countries"
-        
-        case codeCountry = "Only code of countries"
-        
-        // It's finished. That should be end.
-        case count
-        
-        var index : Int { return hashValue }
-        var cellID : String { return "\(self)" }
-        var title: String { return rawValue }
-        
-        static func getFrom(index: Int) -> Sections? {
-            let values = allValues()
-            if index > -1 && index < values.count {
-                return values[index]
-            }
-            return nil
-        }
+        // TODO 4. Глянь RawRepresentable используй allValues() для того чтобы реализовать получение значения Sections по индексу, для того чтобы избавится от Switch в делегируемых методах таблицы
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(CountriesNameListCell.nib, forCellReuseIdentifier: Sections.nameCountry.cellID)
-        tableView.register(CountriesCodeListCell.nib, forCellReuseIdentifier: Sections.codeCountry.cellID)
-        tableView.register(CountriesListCell.nib, forCellReuseIdentifier: Sections.allCountry.cellID)
+        // TODO 2. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
+        tableView.register(UINib(nibName: "CountriesCodeListCell", bundle: nil), forCellReuseIdentifier: "codeCountry")
+        tableView.register(UINib(nibName: "CountriesListCell", bundle: nil), forCellReuseIdentifier: "allCountry")
         
-        /*tableView.register(UINib(nibName: "CountriesNameListCell", bundle: nil), forCellReuseIdentifier: Sections.nameCountry.cellID)
-        tableView.register(UINib(nibName: "CountriesCodeListCell", bundle: nil), forCellReuseIdentifier: Sections.codeCountry.cellID)
-        tableView.register(UINib(nibName: "CountriesListCell", bundle: nil), forCellReuseIdentifier: Sections.allCountry.cellID)*/
+        // TODO 1. Добавь еще в серединку секцию "Only name of countries", его id = "nameCountry" и это ячейка CountriesNameListCell, она уже есть в проекте.
         
         loadCountries()
     }
@@ -65,7 +48,7 @@ class CountriesListController: UIViewController {
     }
     
     func updateCountries() {
-        let searchText = searchBar.text ?? ""
+        let searchText = searchBar.text ?? "" // TODO 6. по пустой строке должен выводить все страны
         countries = allCountries.filter({(countryEntity : CountryEntity) -> Bool in
             return countryEntity.name.lowercased().contains(searchText.lowercased())
         })
@@ -85,15 +68,21 @@ extension CountriesListController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        return Sections.count.hashValue
+        return 2 // TODO 2. Используй enum
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        guard let cellType = Sections.getFrom(index: section) else {
-            return nil
+        // TODO 2. Используй enum
+        switch section {
+        case 0:
+            return "All information"
+        case 1:
+            return "Only code of countries"
+        default:
+            return ""
         }
-        return cellType.title
+        // TODO 3. Избавься от Switch
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -103,19 +92,23 @@ extension CountriesListController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        guard let cellType = Sections.getFrom(index: indexPath.section) else {
-            return UITableViewCell()
-        }
-        
         let entity = countries[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellType.cellID, for: indexPath)
-        
-        if let cell = cell as? CountriesListCellProtocol {
-            cell.update(from: entity)
+        // TODO 2. Используй enum
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "allCountry", for: indexPath) as! CountriesListCell
+            cell.codeLabel.text = entity.code
+            cell.nameLabel.text = entity.name
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "codeCountry", for: indexPath) as! CountriesCodeListCell
+            cell.textLabel?.text = entity.code
+            return cell
+        default:
+            return UITableViewCell()
         }
-        
-        return cell
+        // TODO 3. Избавься от Switch
     }
     
 }
@@ -150,6 +143,7 @@ extension CountriesListController {
         if let controller = segue.destination as? CountryDetailsController {
             controller.country = sender as? CountryEntity
             if controller.country != nil {
+                controller.isAdding = false
                 controller.editHandler = {[weak self] (countryEntity) in
                     guard var countries = self?.allCountries else {
                         return
@@ -169,7 +163,7 @@ extension CountriesListController {
                     self?.loadCountries()
                 }
             } else {
-                // it is adding
+                controller.isAdding = true
                 controller.addHandler = {[weak self] (countryEntity) in
                     guard var countries = self?.allCountries else {
                         return
