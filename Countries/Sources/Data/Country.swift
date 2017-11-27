@@ -22,7 +22,6 @@ protocol JSONProtocol {
     
 }
 
-// TODO 5. обозначь CountryProtocol, чтобы иметь возможность маневров с моделью
 class CountryEntity: JSONProtocol {
     var name: String
     var code: String

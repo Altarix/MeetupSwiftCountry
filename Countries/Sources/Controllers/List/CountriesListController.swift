@@ -33,7 +33,7 @@ class CountriesListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO 2. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
+        // TODO 4. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
         tableView.register(UINib(nibName: "CountriesCodeListCell", bundle: nil), forCellReuseIdentifier: "codeCountry")
         tableView.register(UINib(nibName: "CountriesListCell", bundle: nil), forCellReuseIdentifier: "allCountry")
         
@@ -48,7 +48,7 @@ class CountriesListController: UIViewController {
     }
     
     func updateCountries() {
-        let searchText = searchBar.text ?? "" // TODO 6. по пустой строке должен выводить все страны
+        let searchText = searchBar.text ?? "" // TODO 5. по пустой строке должен выводить все страны
         countries = allCountries.filter({(countryEntity : CountryEntity) -> Bool in
             return countryEntity.name.lowercased().contains(searchText.lowercased())
         })

@@ -18,6 +18,7 @@ import UIKit
 // Да, и ячейки не забудь укомплектовать этим протоколом
 protocol CountriesListCellProtocol {
     
-    func update(from entity: CountryProtocol)
+    // TODO 6. абстрогируйся от модели через протокол
+    func update(from entity: CountryEntity)
 
 }
