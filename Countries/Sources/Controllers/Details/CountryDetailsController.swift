@@ -13,19 +13,19 @@
 
 import UIKit
 
-// TODO 7. Есть такая бага, что переходишь с этого экрана без сохранения изменений обратно в список, а изменения все равно сохраняются
+// TODO 6. Есть такая бага, что переходишь с этого экрана без сохранения изменений обратно в список, а изменения все равно сохраняются
 class CountryDetailsController: UIViewController {
     
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     
-    // TODO 10. Надо переделать логику опциональности, из-за этого падает приложение на добавлении
+    // TODO 9. Надо переделать логику опциональности, из-за этого падает приложение на добавлении
     var country: CountryEntity!
     var editHandler: ((_:CountryEntity) -> Void)!
     var addHandler: ((_:CountryEntity) -> Void)!
     
-    // TODO 10. можно считать избыточным параметром
+    // TODO 9. можно считать избыточным параметром
     var isAdding: Bool = true
     
     override func viewDidLoad() {

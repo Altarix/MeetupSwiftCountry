@@ -48,7 +48,7 @@ class CountriesListController: UIViewController {
     }
     
     func updateCountries() {
-        let searchText = searchBar.text ?? "" // TODO 5. по пустой строке должен выводить все страны
+        let searchText = searchBar.text ?? ""
         countries = allCountries.filter({(countryEntity : CountryEntity) -> Bool in
             return countryEntity.name.lowercased().contains(searchText.lowercased())
         })

@@ -13,7 +13,7 @@
 
 import Foundation
 
-// TODO 8. избыточное решение для Swift 4
+// TODO 7. избыточное решение для Swift 4
 protocol JSONProtocol {
     
     init(json : [String: Any])
@@ -31,7 +31,7 @@ class CountryEntity: JSONProtocol {
         self.code = code
     }
     
-    // TODO 8. Упростить парсинг JSON - Codable
+    // TODO 7. Упростить парсинг JSON - Codable
     required convenience init(json : [String: Any]) {
         self.init(name: json["name"] as? String ?? "",
                   code: json["code"] as? String ?? "")
