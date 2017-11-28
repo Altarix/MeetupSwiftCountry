@@ -52,6 +52,7 @@
 		CF1446801FC6B4DB00AADC73 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		CF1446821FC6CB5F00AADC73 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		CF1446841FC6CBC100AADC73 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		CF3CD6101FCD9DEB0059B267 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +111,7 @@
 		CF0ED8A81FC42A3900772DF0 = {
 			isa = PBXGroup;
 			children = (
+				CF3CD6101FCD9DEB0059B267 /* README.md */,
 				CF0ED8B31FC42A3A00772DF0 /* Countries */,
 				CF0ED8B21FC42A3A00772DF0 /* Products */,
 			);
