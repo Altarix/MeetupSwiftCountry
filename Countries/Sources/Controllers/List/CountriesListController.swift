@@ -21,23 +21,23 @@ class CountriesListController: UIViewController {
     private var allCountries: [CountryEntity] = []
     private var countries: [CountryEntity] = []
     
-    // TODO 2. Сделай каталог всех секций через enum
+    // TODO: 2. Сделай каталог всех секций через enum
     fileprivate enum Sections: String
     {
         case allCountry
         //...
         
-        // TODO 4. Глянь RawRepresentable используй allValues() для того чтобы реализовать получение значения Sections по индексу, для того чтобы избавится от Switch в делегируемых методах таблицы
+        // TODO: 4. Глянь RawRepresentable используй allValues() для того чтобы реализовать получение значения Sections по индексу, для того чтобы избавится от Switch в делегируемых методах таблицы
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO 4. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
+        // TODO: 4. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
         tableView.register(UINib(nibName: "CountriesCodeListCell", bundle: nil), forCellReuseIdentifier: "codeCountry")
         tableView.register(UINib(nibName: "CountriesListCell", bundle: nil), forCellReuseIdentifier: "allCountry")
         
-        // TODO 1. Добавь еще в серединку секцию "Only name of countries", его id = "nameCountry" и это ячейка CountriesNameListCell, она уже есть в проекте.
+        // TODO: 1. Добавь еще в серединку секцию "Only name of countries", его id = "nameCountry" и это ячейка CountriesNameListCell, она уже есть в проекте.
         
         loadCountries()
     }
@@ -68,12 +68,12 @@ extension CountriesListController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 2 // TODO 2. Используй enum
+        return 2 // TODO: 2. Используй enum
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        // TODO 2. Используй enum
+        // TODO: 2. Используй enum
         switch section {
         case 0:
             return "All information"
@@ -82,7 +82,7 @@ extension CountriesListController: UITableViewDataSource {
         default:
             return ""
         }
-        // TODO 3. Избавься от Switch
+        // TODO: 3. Избавься от Switch
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -94,7 +94,7 @@ extension CountriesListController: UITableViewDataSource {
     {
         let entity = countries[indexPath.row]
         
-        // TODO 2. Используй enum
+        // TODO: 2. Используй enum
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "allCountry", for: indexPath) as! CountriesListCell
@@ -108,7 +108,7 @@ extension CountriesListController: UITableViewDataSource {
         default:
             return UITableViewCell()
         }
-        // TODO 3. Избавься от Switch
+        // TODO: 3. Избавься от Switch
     }
     
 }

@@ -41,7 +41,7 @@ final class Loader {
         
         do {
             let responseData = try Data(contentsOf: url, options: .alwaysMapped)
-            // TODO 7. Тут не безопасно! Упростить парсинг JSON - JSONDecoder
+            // TODO: 7. Тут не безопасно! Упростить парсинг JSON - JSONDecoder
             let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as! [[String : Any]]
             for item in json {
                 result.append(T(json: item))
@@ -69,13 +69,13 @@ final class Loader {
         
         do {
             try FileManager.default.removeItem(at: url)
-            // TODO 7. Упростить парсинг JSON - JSONEncoder
+            // TODO: 7. Упростить парсинг JSON - JSONEncoder
             var json: [[String : Any]] = []
             for item in array {
                 json.append(item.json)
             }
             let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-            // TODO 8. С опциональностью мудрежь
+            // TODO: 8. С опциональностью мудрежь
             let jsonString = String(data: data, encoding: .utf8)
             try jsonString?.write(to: url, atomically: true, encoding: .utf8)
             
