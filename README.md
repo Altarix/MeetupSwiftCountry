@@ -6,7 +6,7 @@
 
 ```swift
 
-	override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // TODO: 3. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
