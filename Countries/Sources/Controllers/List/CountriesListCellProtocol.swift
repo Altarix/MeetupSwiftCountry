@@ -13,7 +13,7 @@
 
 import UIKit
 
-// TODO: 3. Реалезуй этот протокол чтобы вытащить из контролера обновление ячеек
+// TODO: 4. Реалезуй этот протокол чтобы вытащить из контролера обновление ячеек
 // ПРИМЕР: extension CountriesListCellProtocol where Self: YourCell
 // Да, и ячейки не забудь укомплектовать этим протоколом
 protocol CountriesListCellProtocol {

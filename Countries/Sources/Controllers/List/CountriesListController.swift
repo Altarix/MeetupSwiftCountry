@@ -27,13 +27,13 @@ class CountriesListController: UIViewController {
         case allCountry
         //...
         
-        // TODO: 4. Глянь RawRepresentable используй allValues() для того чтобы реализовать получение значения Sections по индексу, для того чтобы избавится от Switch в делегируемых методах таблицы
+        // TODO: 3. Глянь RawRepresentable используй allValues() для того чтобы реализовать получение значения Sections по индексу, для того чтобы избавится от Switch в делегируемых методах таблицы
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: 4. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
+        // TODO: 3. Ты хорошо сделал, что использовал xib, но надо как то через константы это все регистрировать, глянь extension UIView я добавил в проект и используй созданный тобой enum
         tableView.register(UINib(nibName: "CountriesCodeListCell", bundle: nil), forCellReuseIdentifier: "codeCountry")
         tableView.register(UINib(nibName: "CountriesListCell", bundle: nil), forCellReuseIdentifier: "allCountry")
         
@@ -82,7 +82,7 @@ extension CountriesListController: UITableViewDataSource {
         default:
             return ""
         }
-        // TODO: 3. Избавься от Switch
+        // TODO: 4. Избавься от Switch
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -108,7 +108,7 @@ extension CountriesListController: UITableViewDataSource {
         default:
             return UITableViewCell()
         }
-        // TODO: 3. Избавься от Switch
+        // TODO: 4. Избавься от Switch
     }
     
 }
